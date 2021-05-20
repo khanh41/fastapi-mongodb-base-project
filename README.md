@@ -1,11 +1,7 @@
-# Keiba AI System 🏇🐎🎠
+# Base code
 ---
 ## Preview 🌄
 ![ui](https://i.imgur.com/euRQPZU.png)
-
----
-
-![predict](https://i.imgur.com/mj9Vn15.png)
 
 ---
 
