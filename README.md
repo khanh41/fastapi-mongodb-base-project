@@ -13,7 +13,7 @@ In your project:
 git remote add upstream https://github.com/khanh41/base-code-fastapi-mongodb
 git pull upstream master
 git checkout -b git checkout -b release/base-code upstream/master
-git push origin release/base-code
+git push origin release/base-code -f
 ~~~
 
 ## Installation ⚡️
