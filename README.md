@@ -7,6 +7,15 @@
 
 ![swagger](https://i.imgur.com/6yOyBaa.png)
 
+## Fork project
+In your project:
+~~~
+git remote add upstream https://github.com/khanh41/base-code-fastapi-mongodb
+git pull upstream master
+git checkout -b git checkout -b release/base-code upstream/master
+git push origin release/base-code
+~~~
+
 ## Installation ⚡️
 ### Requires
 - Python: 3.7~3.8
