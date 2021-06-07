@@ -1,6 +1,6 @@
 temp.txt
-!app/logger/logger.py
 app/logger/*
+!app/logger/logger.py
 app/resources/*
 !app/resources/.keep
 # Created by https://www.toptal.com/developers/gitignore/api/pycharm,python,jupyternotebooks,vscode,visualstudiocode
