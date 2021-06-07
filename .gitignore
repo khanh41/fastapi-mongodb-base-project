@@ -1,4 +1,5 @@
 temp.txt
+!app/logger/logger.py
 app/logger/*
 app/resources/*
 !app/resources/.keep
