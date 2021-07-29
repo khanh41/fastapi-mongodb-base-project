@@ -29,10 +29,6 @@ poetry install
 ~~~
 
 ## Deployment app ⛄️
-Clone:
-~~~
-git clone https://gitlab-new.bap.jp/AI-KEIBA/keiba-ai-system.git
-~~~
 Run MongoDB with docker:
 ~~~
 sudo docker pull mongo
