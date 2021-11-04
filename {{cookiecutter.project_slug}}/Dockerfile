@@ -3,7 +3,7 @@ FROM python:3.8.1-slim
 
 ENV PYTHONUNBUFFERED 1
 
-EXPOSE 8088
+EXPOSE {{cookiecutter.port}}
 WORKDIR /app
 
 
@@ -18,4 +18,4 @@ RUN pip install poetry==1.1 && \
 
 COPY . ./
 
-CMD poetry run uvicorn --host=0.0.0.0 --port 8088 app.main:app
+CMD poetry run uvicorn --host={{cookiecutter.host} --port {{cookiecutter.port}} app.main:app

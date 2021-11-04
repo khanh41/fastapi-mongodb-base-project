@@ -1,84 +1,23 @@
-# AI Fitness Trainer - AIFT
+# Base Project FastAPI and Mongodb
 
 ## Installation ⚡️
 ### Requires
 - Python: 3.7~3.8
 
-Install with poetry:
-~~~
-pip install poetry
-poetry install
-~~~
+Go to the directory where you want to create your project and run:
+```bash
+pip install cookiecutter
+cookiecutter https://github.com/zxc
+```
 
-## Deployment app ⛄️
-Run MongoDB with docker:
-~~~
-sudo docker pull mongo
-sudo docker run --name some-mongo -p 27017:27017 -d mongo
-~~~
+### Input variables
 
-## Deployment with Docker 🐳
-Docker build and run with Dockerfile:
-~~~
-sudo docker pull mongo
-sudo docker run --name some-mongo -p 27017:27017 -d mongo
-sudo docker build -t gym-trainer .
-sudo docker run -it -d gym-trainer
-~~~
-Deployment with docker-compose: 
-~~~
-docker-compose up -d
-~~~
-- Server backend - docs: http://0.0.0.0:8088/docs
-- Api backend: http://0.0.0.0:8088/redoc
-- Server frontend: http://0.0.0.0:8088
+The generator (cookiecutter) will ask you for some data, you might want to have at hand before generating the project.
 
-## Run tests 😋
-Tests for this project are defined in the `tests/` folder.
-~~~
-pytest
-~~~
+The input variables, with their default values (some auto generated) are:
+* `project_name`: The name of the project
+* `project_slug`: The development friendly name of the project. By default, based on the project name
 
-## Run tools 🌍
-Auto format: 
-~~~
-poetry run app/utils/format
-~~~
+## License
 
-Auto lint: 
-~~~
-poetry run app/utils/lint
-~~~
-
-Auto test: 
-~~~
-poetry run app/utils/test
-~~~
-
-## Tree directory 🌗 
-~~~
-app
-├── api                  - web related stuff.
-│   ├── database         - config database.
-│   │   ├── models       - definition of error handlers.
-│   │   ├── excute       - sql handling, CRUD.
-│   │   ├── connect.py   - connect to database.
-│   ├── errors           - definition of error handlers.
-│   └── routes           - web routes.
-│   └── services         - logic that is not just crud related.
-│   └── responses        - response for api request corresponding.
-├── ml                   - machine learning model and preprocessing.
-│   ├── data_loader      - load data or model.
-│   ├── preprocessing    - preprocessing data.
-│   ├── figures          - draw (ignore).
-│   ├── metrics          - metrics for model, etc.
-│   ├── base_model       - model machine learning setup
-│   ├── trainers         - model machine learning training.
-├── core                 - application configuration, startup events, logging.
-├── logger               - export log for server process.
-├── tests                - test api, code.
-├── utils                - tools format, lint, test, etc.
-├── resources            - image, audio, csv, etc. (ignore)
-├── pyproject.toml       - dependencies and package.
-└── main.py              - FastAPI application creation and configuration.
-~~~
+This project is licensed under the terms of the MIT license.

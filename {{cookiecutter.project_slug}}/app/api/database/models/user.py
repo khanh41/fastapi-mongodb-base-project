@@ -1,6 +1,7 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from pydantic import Field
 
 
 class UserSchema(BaseModel):
@@ -18,3 +19,16 @@ class UserSchema(BaseModel):
                 "role": 0,
             }
         }
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+
+
+class UserInDB(UserSchema):
+    hashed_password: str

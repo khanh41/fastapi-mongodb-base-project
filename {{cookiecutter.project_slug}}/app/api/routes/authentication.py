@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
-from app.api.database.models.token import Token
+from app.api.database.models.user import Token
 from app.api.database.models.user import UserSchema
 from app.api.services.authentication_service import authentication_service
 from app.logger.logger import configure_logging
