@@ -1,13 +1,13 @@
-#FastAPI and Mongodb - Base Project Generator
+# FastAPI and Mongodb - Base Project Generator 🔥
 
-## How to use it
+## How to use it ❓
 Go to the directory where you want to create your project and run:
 ```bash
 pip install cookiecutter
 cookiecutter https://github.com/tiangolo/full-stack-fastapi-postgresql
 ```
 
-### Generate passwords
+### Generate passwords ⛏
 You will be asked to provide passwords and secret keys for several components. Open another terminal and run:
 ```bash
 openssl rand -hex 32
@@ -17,7 +17,7 @@ openssl rand -hex 32
 Copy the contents and use that as password / secret key. And run that again to generate another secure key.
 
 
-### Input variables
+### Input variables 💬
 The generator (cookiecutter) will ask you for some data, you might want to have at hand before generating the project.
 
 The input variables, with their default values (some auto generated) are:
@@ -28,6 +28,6 @@ The input variables, with their default values (some auto generated) are:
 * `port`: port running
 * `mongo_db_url`: url connect mongodb
 
-## License
+## License 💂
 
 This project is licensed under the terms of the MIT license.

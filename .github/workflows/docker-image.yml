@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create env
+      env:
+        MONGO_DETAILS: ${{ secrets.MONGO_DETAILS }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        ALGORITHM: ${{ secrets.ALGORITHM }}
+        SOURCE_DIRECTORY: "{{cookiecutter.project_slug}}"
+      run: |
+        mv $SOURCE_DIRECTORY/template.env $SOURCE_DIRECTORY/.env
+        sed -i 's/MONGO_DETAILS=.*/MONGO_DETAILS=$MONGO_DETAILS/' $SOURCE_DIRECTORY/.env
+        sed -i 's/SECRET_KEY=.*/SECRET_KEY=$SECRET_KEY/' $SOURCE_DIRECTORY/.env
+        sed -i 's/ALGORITHM=.*/ALGORITHM=$ALGORITHM/' $SOURCE_DIRECTORY/.env
+    - name: Build the Docker image
+      run: docker-compose up --build -d
