@@ -8,7 +8,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 from app.api.database.execute.user import user_execute as execute
-from app.api.database.models.token import TokenData, UserInDB
+from app.api.database.models.user import TokenData, UserInDB
 
 
 class AuthenticationService(object):

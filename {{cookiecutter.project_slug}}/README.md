@@ -1,4 +1,4 @@
-# AI Fitness Trainer - AIFT
+# {{cookiecutter.project_name}}
 
 ## Installation ⚡️
 ### Requires
@@ -22,16 +22,16 @@ Docker build and run with Dockerfile:
 ~~~
 sudo docker pull mongo
 sudo docker run --name some-mongo -p 27017:27017 -d mongo
-sudo docker build -t gym-trainer .
-sudo docker run -it -d gym-trainer
+sudo docker build -t {{cookiecutter.project_slug}}_image .
+sudo docker run -it -d {{cookiecutter.project_slug}}_container
 ~~~
 Deployment with docker-compose: 
 ~~~
 docker-compose up -d
 ~~~
-- Server backend - docs: http://0.0.0.0:8088/docs
-- Api backend: http://0.0.0.0:8088/redoc
-- Server frontend: http://0.0.0.0:8088
+- Server backend - docs: http://{{cookiecutter.host}:{{cookiecutter.port}}/docs
+- Api backend: http://{{cookiecutter.host}:{{cookiecutter.port}}/redoc
+- Server frontend: http://{{cookiecutter.host}:{{cookiecutter.port}}
 
 ## Run tests 😋
 Tests for this project are defined in the `tests/` folder.
