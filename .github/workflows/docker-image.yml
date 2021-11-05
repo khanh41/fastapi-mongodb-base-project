@@ -25,4 +25,4 @@ jobs:
         sed -i 's/SECRET_KEY=.*/SECRET_KEY=$SECRET_KEY/' $SOURCE_DIRECTORY/.env
         sed -i 's/ALGORITHM=.*/ALGORITHM=$ALGORITHM/' $SOURCE_DIRECTORY/.env
     - name: Build the Docker image
-      run: docker-compose build up --build -d
+      run: docker-compose up --build -d
