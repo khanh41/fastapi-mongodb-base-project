@@ -11,11 +11,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./{{cookiecutter.project_slug}}
     steps:
     - uses: actions/checkout@v2
-    - name: Change work directory
-      run: cd {{cookiecutter.project_slug}}
     - name: Create env
       env:
         MONGO_DETAILS: ${{ secrets.MONGO_DETAILS }}
