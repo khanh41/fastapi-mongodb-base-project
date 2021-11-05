@@ -18,7 +18,7 @@ jobs:
         MONGO_DETAILS: ${{ secrets.MONGO_DETAILS }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         ALGORITHM: ${{ secrets.ALGORITHM }}
-        SOURCE_DIRECTORY: {{cookiecutter.project_slug}}
+        SOURCE_DIRECTORY: "{{cookiecutter.project_slug}}"
       run: |
         mv $SOURCE_DIRECTORY/template.env $SOURCE_DIRECTORY/.env
         sed -i 's/MONGO_DETAILS=.*/MONGO_DETAILS=$MONGO_DETAILS/' $SOURCE_DIRECTORY/.env
