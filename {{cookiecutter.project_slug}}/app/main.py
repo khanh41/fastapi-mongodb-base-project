@@ -1,6 +1,7 @@
 import os
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -18,8 +19,12 @@ PORT = os.getenv("APP_PORT")
 
 def get_application() -> FastAPI:
     from app.api.routes.api import app as api_router
+    from app.api.routes import authentication
+    from app.api.helpers.download import download_video_template
 
-    application = FastAPI(title=PROJECT_NAME, debug=DEBUG, version=VERSION)
+    download_video_template()
+
+    application = FastAPI(title=PROJECT_NAME, debug=DEBUG, version=VERSION, docs_url=None)
     print()
     application.add_middleware(
         CORSMiddleware,
@@ -36,10 +41,12 @@ def get_application() -> FastAPI:
     application.add_exception_handler(RequestValidationError, http422_error_handler)
 
     application.include_router(api_router, prefix=API_PREFIX)
+    application.include_router(authentication.router, tags=["Authentication"])
 
     application.mount(
         "/static", StaticFiles(directory="app/frontend/static"), name="static"
     )
+
     templates = Jinja2Templates(directory="app/frontend/templates")
 
     @application.get("/", tags=["UI"], response_class=HTMLResponse, deprecated=False)
