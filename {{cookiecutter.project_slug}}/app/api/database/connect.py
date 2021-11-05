@@ -1,8 +1,8 @@
-import os
-
 import pymongo
 
-client = pymongo.MongoClient(os.getenv("MONGO_DETAILS"), serverSelectionTimeoutMS=5000)
+from app.core.constant import MONGO_DETAILS
+
+client = pymongo.MongoClient(MONGO_DETAILS, serverSelectionTimeoutMS=5000)
 
 database = client.test
 # database = client.{{ cookiecutter.project_slug}}
