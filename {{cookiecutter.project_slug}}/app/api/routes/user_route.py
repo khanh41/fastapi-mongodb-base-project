@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from app.api.database.execute.user import user_execute as execute
 from app.api.database.models.user import UserSchema
 from app.api.responses.base import response
-from app.api.services.authentication_service import authentication_service
+from app.api.services import authentication_service
 from app.logger.logger import configure_logging
 
 logger = configure_logging(__name__)
@@ -56,7 +56,5 @@ async def update_user_data(id: str, req: UserSchema = Body(...)):
 async def delete_user_data(id: str):
     deleted_user = execute.delete_data(id)
     if deleted_user:
-        return response.success_response(
-            "user with ID: {} removed".format(id), "user deleted successfully"
-        )
+        return response.success_response("user with ID: {} removed".format(id))
     return response.error_response("user with id {0} doesn't exist".format(id), 404)
