@@ -29,9 +29,9 @@ Deployment with docker-compose:
 ~~~
 docker-compose up -d
 ~~~
-- Server backend - docs: http://{{cookiecutter.host}:{{cookiecutter.port}}/docs
-- Api backend: http://{{cookiecutter.host}:{{cookiecutter.port}}/redoc
-- Server frontend: http://{{cookiecutter.host}:{{cookiecutter.port}}
+- Server backend - docs: http://{{cookiecutter.host}}:{{cookiecutter.port}}/docs
+- Api backend: http://{{cookiecutter.host}}:{{cookiecutter.port}}/redoc
+- Server frontend: http://{{cookiecutter.host}}:{{cookiecutter.port}}
 
 ## Run tests 😋
 Tests for this project are defined in the `tests/` folder.
