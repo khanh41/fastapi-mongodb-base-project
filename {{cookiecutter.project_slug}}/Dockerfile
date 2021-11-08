@@ -18,4 +18,4 @@ RUN pip install poetry==1.1 && \
 
 COPY . ./
 
-CMD poetry run uvicorn --host={{cookiecutter.host} --port {{cookiecutter.port}} app.main:app
+CMD poetry run uvicorn --host={{cookiecutter.host}} --port {{cookiecutter.port}} app.main:app
