@@ -23,6 +23,7 @@ passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 python-crontab = "^2.6.0"
 Jinja2 = "^3.0.2"
+tensorflow = "2.4.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"

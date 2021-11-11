@@ -8,8 +8,6 @@ class UserInformationSchema(BaseModel):
     name: str = Field(...)
     email: str = Field(...)
     phoneNumber: str = Field(...)
-    weight: float = Field(...)
-    height: float = Field(...)
     age: int = Field(...)
     createAt: Optional[str] = None
     updateAt: Optional[str] = None
@@ -21,7 +19,6 @@ class UserInformationSchema(BaseModel):
                 "name": "example",
                 "email": "example@gmail.com",
                 "phoneNumber": "0123456789",
-                "weight": 42.5,
-                "height": 162,
+                "age": 22,
             }
         }

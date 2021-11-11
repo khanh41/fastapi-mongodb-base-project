@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from app.core.constants import TFRecordConstants
+from app.core.constant import TFRecordConstants
 
 
 def load_image_from_directory(path_image_dataset, validation_split):
