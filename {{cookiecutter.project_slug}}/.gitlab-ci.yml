@@ -1,11 +1,14 @@
-docker-build:
-  # Use the official docker image.
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
+stages:
+  - deploy
+
+build_image:
+  stage: deploy
   script:
-    - apk add --no-cache docker-compose
-    - docker-compose up -d
+    - docker rm -f {{cookiecutter.project_slug}}_container &>/dev/null && echo 'Removed old container'
+    - docker build -t {{cookiecutter.project_slug}} .
+    - docker run -it --name {{cookiecutter.project_slug}}_container -p 8087:8087 -d {{cookiecutter.project_slug}}
+    - docker exec -d {{cookiecutter.project_slug}}_container cron -f
+    - docker system prune -f
+
   only:
     - develop
