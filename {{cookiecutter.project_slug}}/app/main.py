@@ -1,5 +1,3 @@
-import os
-
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.exceptions import RequestValidationError
@@ -13,16 +11,15 @@ from app.api.errors.http_error import http_error_handler
 from app.api.errors.validation_error import http422_error_handler
 from app.core.config import ALLOWED_HOSTS, API_PREFIX, DEBUG, PROJECT_NAME, VERSION
 
-HOST = os.getenv("APP_HOST")
-PORT = os.getenv("APP_PORT")
-
 
 def get_application() -> FastAPI:
     from app.api.routes.api import app as api_router
     from app.api.routes import authentication
     from app.api.helpers.download import download_video_template
+    from app.api.database.migrate.init_super_user import init_super_user
 
     download_video_template()
+    init_super_user()
 
     application = FastAPI(title=PROJECT_NAME, debug=DEBUG, version=VERSION, docs_url=None)
     print()
@@ -60,5 +57,8 @@ app = get_application()
 
 if __name__ == "__main__":
     import uvicorn
+    import os
 
+    HOST = os.getenv("APP_HOST")
+    PORT = os.getenv("APP_PORT")
     uvicorn.run(app, host=HOST, port=int(PORT))

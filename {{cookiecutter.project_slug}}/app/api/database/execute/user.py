@@ -14,5 +14,10 @@ class UserExecute(BaseExecute):
         if data:
             return self.data_helper(data)
 
+    def retrieve_data_by_role(self, role: int) -> dict:
+        data = self.data_collection.find_one({"role": role})
+        if data:
+            return self.data_helper(data)
+
 
 user_execute = UserExecute(user_collection, user_helper)
