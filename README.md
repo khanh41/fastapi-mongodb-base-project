@@ -1,4 +1,6 @@
 # FastAPI and Mongodb - Base Project Generator 🔥
+![docker build](https://github.com/khanh41/fastapi-mongodb-base-project/actions/workflows/docker-image.yml/badge.svg)
+![codeQL](https://github.com/khanh41/fastapi-mongodb-base-project/actions/workflows/codeql-analysis.yml/badge.svg)
 
 ## How to use it ❓
 Go to the directory where you want to create your project and run:
@@ -24,9 +26,10 @@ The input variables, with their default values (some auto generated) are:
 
 * `project_name`: The name of the project
 * `project_slug`: The development friendly name of the project. By default, based on the project name
-* `host`: ip host running
-* `port`: port running
-* `mongo_db_url`: url connect mongodb
+* `host`: IP host running
+* `port`: Port running
+* `super_username`: The first superuser generated, with it you will be able to create more users, etc. By default, based on the domain.
+* `super_password`: First superuser password. Use the method above to generate it.
 
 ## License 💂
 
