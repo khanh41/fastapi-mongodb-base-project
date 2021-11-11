@@ -18,4 +18,5 @@ RUN pip install poetry==1.1 && \
 
 COPY . ./
 
+RUN poetry run python run_crontab.py
 CMD poetry run uvicorn --host={{cookiecutter.host}} --port {{cookiecutter.port}} app.main:app
