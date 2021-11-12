@@ -9,6 +9,9 @@ pip install cookiecutter
 
 # And choose an option you want:
 
+# API Machine learning
+cookiecutter --checkout ml https://github.com/khanh41/fastapi-mongodb-base-project
+
 # Full cron, machine learning - tensorflow
 cookiecutter https://github.com/khanh41/fastapi-mongodb-base-project
 
