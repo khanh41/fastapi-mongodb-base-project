@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 COPY $DIRECTORY/poetry.lock $DIRECTORY/pyproject.toml ./
 
-RUN pip install poetry==1.1 && \
+RUN pip install poetry && \
     poetry config virtualenvs.in-project false && \
     poetry install --no-dev
 
