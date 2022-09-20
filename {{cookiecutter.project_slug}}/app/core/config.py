@@ -19,7 +19,8 @@ config = Config(".env")
 
 DEBUG: bool = config("DEBUG", cast=bool, default=False)
 
-PROJECT_NAME: str = config("AI-FITNESS-TRAINER", default="AI Fitness Trainer application")
+PROJECT_NAME: str = config("{{ cookiecutter.project_name|replace(' ', '-') }}",
+                           default="{{ cookiecutter.project_name }} application")
 ALLOWED_HOSTS: List[str] = config(
     "ALLOWED_HOSTS",
     cast=CommaSeparatedStrings,

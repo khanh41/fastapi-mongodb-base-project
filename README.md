@@ -6,22 +6,6 @@
 Go to the directory where you want to create your project and run:
 ```bash
 pip install cookiecutter
-
-# And choose an option you want:
-
-# API Machine learning
-cookiecutter --checkout ml https://github.com/khanh41/fastapi-mongodb-base-project
-
-# Full cron, machine learning - tensorflow
-cookiecutter https://github.com/khanh41/fastapi-mongodb-base-project
-
-# API Machine learning - tensorflow
-cookiecutter --checkout machine-learning-tf https://github.com/khanh41/fastapi-mongodb-base-project
-
-# Full cron, machine learning (without tensorflow)
-cookiecutter --checkout cron-ml https://github.com/khanh41/fastapi-mongodb-base-project
-
-# Base API backend
 cookiecutter --checkout base-api https://github.com/khanh41/fastapi-mongodb-base-project
 ```
 
