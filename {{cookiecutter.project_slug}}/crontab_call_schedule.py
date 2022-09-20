@@ -1,3 +1,7 @@
+"""
+Service needs to run on schedule (See run_crontab.py)
+"""
+
 if __name__ == "__main__":
     try:
         from app.logger.logger import configure_logging

@@ -1,3 +1,8 @@
+"""
+This file is used to run `crontab_call_schedule.py` (the scheduler you have set up)
+So you can remove it and `crontab_call_schedule.py` if you don't need scheduler like AWS EventBridge
+"""
+
 import argparse
 import os
 import sys
@@ -6,6 +11,7 @@ from app.logger.logger import configure_logging
 
 logger = configure_logging(__name__)
 
+"""You need to add crontab to poetry"""
 from crontab import CronTab
 
 my_cron = CronTab(user=True)
