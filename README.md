@@ -6,7 +6,7 @@
 Go to the directory where you want to create your project and run:
 ```bash
 pip install cookiecutter
-cookiecutter --checkout base-api https://github.com/khanh41/fastapi-mongodb-base-project
+cookiecutter https://github.com/khanh41/fastapi-mongodb-base-project
 ```
 
 ### Generate passwords ⛏
