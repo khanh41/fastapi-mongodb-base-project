@@ -15,7 +15,10 @@ RUN apt-get update && \
     apt-get install python3 python3-pip build-essential cmake pkg-config libx11-dev libatlas-base-dev libgtk-3-dev libboost-python-dev -y
 
 COPY poetry.lock pyproject.toml ./
-RUN poetry install --no-dev
+
+RUN pip install poetry && \
+    poetry config virtualenvs.in-project false && \
+    poetry install --no-dev
 
 COPY . ./
 
