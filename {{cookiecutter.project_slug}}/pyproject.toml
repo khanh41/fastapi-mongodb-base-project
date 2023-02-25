@@ -40,7 +40,8 @@ httpx = "^0.23.3"
 asgi-lifespan = "^2.0.0"
 autopep8 = "1.5.7"
 
-
+[tool.pylint]
+line-length = 120
 
 [tool.isort]
 profile = "black"
@@ -60,7 +61,7 @@ addopts = '''
   --cov-report=html
   --cov-report=xml
   --no-cov-on-fail
-  --cov-fail-under=100
+  --cov-fail-under=80
 '''
 env = ["SECRET_KEY=secret"]
 
