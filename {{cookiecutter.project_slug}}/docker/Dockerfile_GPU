@@ -1,9 +1,10 @@
-FROM python:3.8
+FROM nvidia/cuda:11.0.3-base-ubuntu20.04
 
 ENV PYTHONUNBUFFERED 1
 
-EXPOSE {{cookiecutter.port}}
 WORKDIR /app
+
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
 
 RUN apt-get update && \
     apt-get install gcc -y && \
