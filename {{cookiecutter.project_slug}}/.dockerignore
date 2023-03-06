@@ -1,0 +1,5 @@
+.venv
+venv
+.idea
+!app/resources/.keep
+app/resources/*/*
