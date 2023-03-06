@@ -1,3 +1,5 @@
+"""Logging."""
+
 import logging
 from types import FrameType
 from typing import cast
@@ -6,7 +8,14 @@ from loguru import logger
 
 
 class InterceptHandler(logging.Handler):
+    """Intercept Handler."""
+
     def emit(self, record: logging.LogRecord) -> None:  # pragma: no cover
+        """Emit.
+
+        Args:
+            record: Record for emit.
+        """
         # Get corresponding Loguru level if it exists
         try:
             level = logger.level(record.levelname).name

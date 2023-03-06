@@ -1,15 +1,14 @@
+"""Authentication."""
 import base64
 from datetime import timedelta
 
-from fastapi import APIRouter
-from fastapi import Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette.responses import RedirectResponse, Response
 
-from app.api.database.models.user import Token, BasicAuth, basic_auth
-from app.api.database.models.user import UserSchema
+from app.api.database.models.user import BasicAuth, Token, UserSchema, basic_auth
 from app.api.services import authentication_service
 from app.core.constant import ACCESS_TOKEN_EXPIRE_MINUTES
 from app.logger.logger import configure_logging
@@ -23,6 +22,7 @@ router = APIRouter()
 
 @router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    """Login token."""
     user = authentication_service.authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -39,6 +39,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 @router.get("/logout")
 async def route_logout_and_remove_cookie():
+    """Logout and remove cookie."""
     response = RedirectResponse(url="/")
     response.delete_cookie("Authorization", domain="localhost")
     return response
@@ -46,9 +47,9 @@ async def route_logout_and_remove_cookie():
 
 @router.get("/login")
 async def login_basic(auth: BasicAuth = Depends(basic_auth)):
+    """Login and get token."""
     if not auth:
-        response = Response(headers={"WWW-Authenticate": "Basic"}, status_code=401)
-        return response
+        return Response(headers={"WWW-Authenticate": "Basic"}, status_code=401)
 
     try:
         decoded = base64.b64decode(auth).decode("ascii")
@@ -75,16 +76,17 @@ async def login_basic(auth: BasicAuth = Depends(basic_auth)):
         )
         return response
 
-    except:
-        response = Response(headers={"WWW-Authenticate": "Basic"}, status_code=401)
-        return response
+    except HTTPException:
+        return Response(headers={"WWW-Authenticate": "Basic"}, status_code=401)
 
 
 @router.get("/docs")
 async def get_documentation(current_user: UserSchema = Depends(authentication_service.get_current_active_user)):
+    """Get documentation."""
     return get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
 
 
 @router.get("/users/me/", response_model=UserSchema)
 async def read_users_me(current_user: UserSchema = Depends(authentication_service.get_current_active_user)):
+    """Get information of current user."""
     return current_user

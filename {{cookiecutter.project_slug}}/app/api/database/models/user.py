@@ -1,19 +1,24 @@
+# pylint: skip-file
+"""User Model."""
+
 from typing import Optional
 
 from fastapi import HTTPException
-from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
-from fastapi.openapi.models import SecurityBase as SecurityBaseModel
+from fastapi.openapi.models import (
+    OAuthFlows as OAuthFlowsModel,
+    SecurityBase as SecurityBaseModel,
+)
 from fastapi.security import OAuth2
 from fastapi.security.base import SecurityBase
 from fastapi.security.utils import get_authorization_scheme_param
 from passlib.context import CryptContext
-from pydantic import BaseModel
-from pydantic import Field
+from pydantic import BaseModel, Field
 from starlette.requests import Request
 from starlette.status import HTTP_403_FORBIDDEN
 
 
 class UserSchema(BaseModel):
+    """User Schema."""
     username: str = Field(...)
     password: str = Field(...)
     role: int = Field(...)
@@ -21,6 +26,7 @@ class UserSchema(BaseModel):
     updateAt: Optional[str] = None
 
     class Config:
+        """Config."""
         schema_extra = {
             "example": {
                 "username": "example@gmail.com",
@@ -31,26 +37,31 @@ class UserSchema(BaseModel):
 
 
 class Token(BaseModel):
+    """Token."""
     access_token: str
     token_type: str
 
 
 class TokenData(BaseModel):
+    """Token Data."""
     username: Optional[str] = None
 
 
 class UserInDB(UserSchema):
+    """User In DB"""
     hashed_password: str
 
 
 class OAuth2PasswordBearerCookie(OAuth2):
+    """Authentication Bearer Cookie."""
+
     def __init__(
             self,
             tokenUrl: str,
             scheme_name: str = None,
             scopes: dict = None,
             auto_error: bool = True,
-    ):
+    ) -> None:
         if not scopes:
             scopes = {}
         flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})
@@ -87,12 +98,13 @@ class OAuth2PasswordBearerCookie(OAuth2):
                 raise HTTPException(
                     status_code=HTTP_403_FORBIDDEN, detail="Not authenticated"
                 )
-            else:
-                return None
+            return None
         return param
 
 
 class BasicAuth(SecurityBase):
+    """Basic Auth."""
+
     def __init__(self, scheme_name: str = None, auto_error: bool = True):
         self.model = SecurityBaseModel(type="http")
         self.scheme_name = scheme_name or self.__class__.__name__
@@ -106,8 +118,7 @@ class BasicAuth(SecurityBase):
                 raise HTTPException(
                     status_code=HTTP_403_FORBIDDEN, detail="Not authenticated"
                 )
-            else:
-                return None
+            return None
         return param
 
 
