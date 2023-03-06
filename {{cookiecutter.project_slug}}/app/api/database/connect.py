@@ -1,3 +1,4 @@
+"""Connect Oracle Database."""
 import pymongo
 
 from app.core.constant import MONGO_DETAILS
