@@ -6,9 +6,7 @@ from app.api.database.execute.user import user_execute as execute
 from app.api.database.models.user import UserSchema
 from app.api.responses.base import response
 from app.api.services import authentication_service
-from app.logger.logger import configure_logging
 
-logger = configure_logging(__name__)
 router = APIRouter()
 
 

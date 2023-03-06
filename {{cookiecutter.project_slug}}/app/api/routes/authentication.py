@@ -11,12 +11,10 @@ from starlette.responses import RedirectResponse, Response
 from app.api.database.models.user import BasicAuth, Token, UserSchema, basic_auth
 from app.api.services import authentication_service
 from app.core.constant import ACCESS_TOKEN_EXPIRE_MINUTES
-from app.logger.logger import configure_logging
 
 # to get a string like this run:
 # openssl rand -hex 32
 
-logger = configure_logging(__name__)
 router = APIRouter()
 
 
@@ -81,6 +79,7 @@ async def login_basic(auth: BasicAuth = Depends(basic_auth)):
 
 
 @router.get("/docs")
+# pylint: disable=W0612,W0613
 async def get_documentation(current_user: UserSchema = Depends(authentication_service.get_current_active_user)):
     """Get documentation."""
     return get_swagger_ui_html(openapi_url="/openapi.json", title="docs")

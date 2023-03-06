@@ -1,5 +1,6 @@
+# skip-file
 """Token Models."""
-from typing import Optional
+from typing import Optional as Op
 
 from pydantic import BaseModel
 
@@ -14,7 +15,7 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     """Token Data."""
-    username: Optional[str] = None
+    username: Op[str] = None
 
 
 class UserInDB(UserSchema):
