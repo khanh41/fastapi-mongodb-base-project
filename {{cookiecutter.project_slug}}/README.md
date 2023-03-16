@@ -2,7 +2,7 @@
 
 ## Installation ⚡️
 ### Requires
-- Python: 3.7~3.8
+- Python >= 3.8
 
 Install with poetry:
 ~~~
@@ -36,7 +36,7 @@ docker-compose up -d
 ## Run tests 😋
 Tests for this project are defined in the `tests/` folder.
 ~~~
-pytest
+poetry run pytest
 ~~~
 
 ## Run tools 🌍
@@ -47,6 +47,8 @@ poetry run app/utils/format
 
 Auto lint: 
 ~~~
+poetry run pylint app
+# OR
 poetry run app/utils/lint
 ~~~
 
@@ -60,7 +62,7 @@ poetry run app/utils/test
 app
 ├── api                  - web related stuff.
 │   ├── database         - config database.
-│   │   ├── models       - definition of error handlers.
+│   │   ├── models       - definition of table model.
 │   │   ├── excute       - sql handling, CRUD.
 │   │   ├── connect.py   - connect to database.
 │   ├── errors           - definition of error handlers.

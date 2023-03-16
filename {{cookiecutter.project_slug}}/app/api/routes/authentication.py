@@ -8,7 +8,9 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette.responses import RedirectResponse, Response
 
-from app.api.database.models.user import BasicAuth, Token, UserSchema, basic_auth
+from app.api.database.models.auth import basic_auth, BasicAuth
+from app.api.database.models.token import Token
+from app.api.database.models.user import UserSchema
 from app.api.services import authentication_service
 from app.core.constant import ACCESS_TOKEN_EXPIRE_MINUTES
 
@@ -79,13 +81,13 @@ async def login_basic(auth: BasicAuth = Depends(basic_auth)):
 
 
 @router.get("/docs")
-# pylint: disable=W0612,W0613
+# pylint: disable=unused-argument
 async def get_documentation(current_user: UserSchema = Depends(authentication_service.get_current_active_user)):
     """Get documentation."""
     return get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
 
 
-@router.get("/users/me/", response_model=UserSchema)
+@router.get("/users/me", response_model=UserSchema)
 async def read_users_me(current_user: UserSchema = Depends(authentication_service.get_current_active_user)):
     """Get information of current user."""
     return current_user

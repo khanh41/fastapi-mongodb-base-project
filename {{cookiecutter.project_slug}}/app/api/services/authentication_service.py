@@ -8,13 +8,9 @@ from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
 
 from app.api.database.execute.user import user_execute as execute
-from app.api.database.models.user import (
-    TokenData,
-    UserInDB,
-    UserSchema,
-    oauth2_scheme,
-    pwd_context,
-)
+from app.api.database.models.auth import oauth2_scheme, pwd_context
+from app.api.database.models.token import TokenData
+from app.api.database.models.user import UserSchema
 from app.core.constant import ALGORITHM, SECRET_KEY
 
 
@@ -50,13 +46,12 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
-def authenticate_user(username: str, password: str) -> bool | UserInDB:
+def authenticate_user(username: str, password: str) -> bool | UserSchema:
     """Authenticate user."""
     user = execute.retrieve_data_by_username(username)
-    user = UserInDB(**user)
     if not user:
         return False
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.password):
         return False
     return user
 
