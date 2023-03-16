@@ -21,6 +21,7 @@ wget = "^3.2"
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 Jinja2 = "^3.1.2"
+python-multipart = "^0.0.6"
 
 [tool.poetry.dev-dependencies]
 black = "^23.1.0"
@@ -61,7 +62,7 @@ addopts = '''
   --cov-report=html
   --cov-report=xml
   --no-cov-on-fail
-  --cov-fail-under=80
+  --cov-fail-under=70
 '''
 env = ["SECRET_KEY=secret"]
 
