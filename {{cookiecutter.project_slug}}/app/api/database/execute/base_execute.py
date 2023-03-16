@@ -1,61 +1,50 @@
 """Base Execute."""
 from __future__ import annotations
 
-import datetime
-
 from bson.objectid import ObjectId
+
+from app.api.database.models.base import CustomBaseModel
 
 
 class BaseExecute:
     """Base Execute."""
 
-    def __init__(self, data_collection, data_helper):
+    def __init__(self, data_collection, convert_helper):
         self.data_collection = data_collection
-        self.data_helper = data_helper
+        self.convert_helper = convert_helper
 
-    def retrieve_datas(self):
+    def retrieve_datas(self) -> list[CustomBaseModel]:
         """Retrieve all data."""
         datas = []
         for data in self.data_collection.find():
-            datas.append(self.data_helper(data))
+            datas.append(self.convert_helper(data))
         return datas
 
-    def add_data(self, data: dict) -> dict:
+    def add_data(self, data: CustomBaseModel) -> CustomBaseModel:
         """Add a new data."""
-        data['createAt'] = datetime.datetime.now()
-        data['updateAt'] = datetime.datetime.now()
-        data = self.data_collection.insert_one(data)
+        data = self.data_collection.insert_one(data.dict())
         new_data = self.data_collection.find_one({"_id": data.inserted_id})
-        return self.data_helper(new_data)
+        return self.convert_helper(new_data)
 
-    def retrieve_data(self, object_id: str) -> dict | None:
+    def retrieve_data(self, object_id: str) -> CustomBaseModel | None:
         """Retrieve a data with a matching ID."""
         data = self.data_collection.find_one({"_id": ObjectId(object_id)})
         if data:
-            return self.data_helper(data)
+            return self.convert_helper(data)
         return None
 
-    def update_data(self, object_id: str, data: dict) -> bool | None:
+    def update_data(self, object_id: str, update_data: dict) -> bool:
         """Update a data with a matching ID."""
-        # Return false if an empty request body is sent.
-        if len(data) < 1:
-            return False
-
-        data['updateAt'] = datetime.datetime.now()
         data = self.data_collection.find_one({"_id": ObjectId(object_id)})
         if data:
-            updated_data = self.data_collection.update_one(
-                {"_id": ObjectId(object_id)}, {"$set": data}
-            )
-            if updated_data:
-                return True
-            return False
-        return None
+            updated_data = self.data_collection.update_one({"_id": ObjectId(object_id)}, {"$set": update_data})
+            return bool(updated_data)
+        return False
 
-    def delete_data(self, object_id: str) -> bool | None:
+    def delete_data(self, object_id: str) -> bool:
         """Delete a data."""
         data = self.data_collection.find_one({"_id": ObjectId(object_id)})
         if data:
             self.data_collection.delete_one({"_id": ObjectId(object_id)})
             return True
-        return None
+        return False

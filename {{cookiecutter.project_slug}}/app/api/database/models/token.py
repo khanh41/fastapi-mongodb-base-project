@@ -1,22 +1,16 @@
+# skip-file
 """Token Models."""
-from typing import Optional
+from typing import Optional as Op
 
-from pydantic import BaseModel
-
-from app.api.database.models.user import UserSchema
+from app.api.database.models.base import CustomBaseModel
 
 
-class Token(BaseModel):
+class Token(CustomBaseModel):
     """Token Model."""
     access_token: str
     token_type: str
 
 
-class TokenData(BaseModel):
+class TokenData(CustomBaseModel):
     """Token Data."""
-    username: Optional[str] = None
-
-
-class UserInDB(UserSchema):
-    """User In DB."""
-    hashed_password: str
+    username: Op[str] = None
