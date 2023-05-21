@@ -84,9 +84,7 @@ def get_application() -> FastAPI:
     application.include_router(api_router, prefix=API_PREFIX)
     application.include_router(authentication.router, tags=["Authentication"])
 
-    application.mount(
-        "/static", StaticFiles(directory="app/frontend/static"), name="static"
-    )
+    application.mount("/static", StaticFiles(directory="app/frontend/static"), name="static")
 
     templates = Jinja2Templates(directory="app/frontend/templates")
 
