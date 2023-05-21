@@ -10,7 +10,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends netcat && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* .venv venv
 
-COPY $DIRECTORY/poetry.lock $DIRECTORY/pyproject.toml ./
+COPY $DIRECTORY/pyproject.toml ./
 
 RUN pip install poetry && \
     poetry config virtualenvs.in-project false && \
