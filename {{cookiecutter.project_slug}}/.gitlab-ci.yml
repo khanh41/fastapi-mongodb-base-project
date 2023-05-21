@@ -6,7 +6,7 @@ build_image:
   script:
     - docker rm -f {{cookiecutter.project_slug}}_container &>/dev/null && echo 'Removed old container'
     - docker build -t {{cookiecutter.project_slug}} .
-    - docker run -it --name {{cookiecutter.project_slug}}_container -p 8087:8087 -d {{cookiecutter.project_slug}}
+    - docker run -it --name {{cookiecutter.project_slug}}_container -p {{cookiecutter.port}}:{{cookiecutter.port}} -d {{cookiecutter.project_slug}}
     - docker system prune -f
 
   only:

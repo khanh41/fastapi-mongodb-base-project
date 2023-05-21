@@ -10,6 +10,12 @@ pip install poetry
 poetry install
 ~~~
 
+Create `.env` file as `template.env`
+
+**WARNING**: 
+- When run application in local: `MONGO_DETAILS=mongodb://localhost:27017`
+- When run application with docker-compose (not yet public port): `MONGO_DETAILS=mongodb://mongodb:27017`
+
 ## Deployment app ⛄️
 Run MongoDB with docker:
 ~~~

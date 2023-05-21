@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.10
 
 ENV PYTHONUNBUFFERED 1
 
@@ -14,14 +14,15 @@ RUN apt-get update && \
 RUN apt-get update && \
     apt-get install python3 python3-pip build-essential cmake pkg-config libx11-dev libatlas-base-dev libgtk-3-dev libboost-python-dev -y
 
-COPY poetry.lock pyproject.toml ./
-
 RUN pip install poetry && \
-    poetry config virtualenvs.in-project false && \
-    poetry install --no-dev
+    poetry config virtualenvs.in-project false
+
+COPY pyproject.toml poetry.lock ./
+
+RUN poetry install --no-dev
 
 COPY . ./
 
 RUN poetry run pytest -v
 
-CMD ["poetry", "run","uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "{{cookiecutter.port}}"]
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "{{cookiecutter.port}}"]

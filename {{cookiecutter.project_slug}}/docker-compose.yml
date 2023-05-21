@@ -1,16 +1,27 @@
-version: "3"
+version: "3.9"
 
 services:
   app:
-    build: docker/Dockerfile
-    restart: on-failure
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: always
     depends_on:
       - mongodb
     ports:
       - "{{cookiecutter.port}}:{{cookiecutter.port}}"
+    networks:
+      - backend
 
   mongodb:
     image: mongo
     restart: always
     env_file:
       - .env
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: {{cookiecutter.project_slug}}_network
+    driver: bridge
