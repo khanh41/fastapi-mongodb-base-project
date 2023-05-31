@@ -41,7 +41,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 async def route_logout_and_remove_cookie():
     """Logout and remove cookie."""
     response = RedirectResponse(url="/")
-    response.delete_cookie("Authorization", domain="*")
+    response.delete_cookie("Authorization")
     return response
 
 
@@ -69,7 +69,6 @@ async def login_basic(auth: BasicAuth = Depends(basic_auth)):
         response.set_cookie(
             "Authorization",
             value=f"Bearer {token}",
-            domain="*",
             httponly=True,
             max_age=1800,
             expires=1800,
