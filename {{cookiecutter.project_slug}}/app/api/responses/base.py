@@ -9,22 +9,12 @@ class BaseResponse:
 
     @staticmethod
     def success_response(
-            message: str = "API success",
-            status_code: int = status.HTTP_200_OK,
-            message_code: int = 0,
-            data=None,
+        message: str = "SUCCESS",
+        status_code: int = status.HTTP_200_OK,
+        message_code: int = 0,
+        data=None,
     ):
-        """Success response with message and status code.
-
-        Args:
-            message: API Message.
-            status_code: API status code.
-            message_code: API message code.
-            data: Response data.
-
-        Returns:
-            Success response.
-        """
+        """Success response with a message and status code."""
         if data is None:
             return JSONResponse(
                 status_code=status_code,
@@ -44,17 +34,8 @@ class BaseResponse:
             )
 
     @staticmethod
-    def error_response(message: str = "API error", status_code: int = status.HTTP_200_OK, message_code: int = 0):
-        """Error response with message and status code.
-
-        Args:
-            message: API Message.
-            status_code: API status code.
-            message_code: API message code.
-
-        Returns:
-            Error response.
-        """
+    def error_response(message: str = "ERROR", status_code: int = status.HTTP_400_BAD_REQUEST, message_code: int = 0):
+        """Error response with a message and status code."""
         return JSONResponse(
             status_code=status_code,
             content={

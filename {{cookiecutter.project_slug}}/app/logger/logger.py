@@ -3,6 +3,8 @@
 import logging
 from datetime import datetime
 
+from app.core.config import LOGGING_LEVEL
+
 
 class UvicornFormatter(logging.Formatter):
     """Uvicorn Formatter."""
@@ -44,21 +46,22 @@ def configure_logging():
         Logger.
     """
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(LOGGING_LEVEL)
 
     # Create a file handler with a lower log level
-    file_handler = logging.FileHandler('app/logger/logger.log')
-    file_handler.setLevel(logging.DEBUG)
+    file_handler = logging.FileHandler("app/logger/logger.log")
+    file_handler.setLevel(LOGGING_LEVEL)
 
     # Create a console handler with a higher log level
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG)
+    console_handler.setLevel(LOGGING_LEVEL)
 
     # Create a formatter and add it to the handlers
     default_formatter = logging.Formatter(
         "[%(asctime)s] [%(levelname)s] [%(name)s] "
         "[%(funcName)s():%(lineno)s] [PID:%(process)d TID:%(thread)d] %(message)s",
-        "%d/%m/%Y %H:%M:%S")
+        "%d/%m/%Y %H:%M:%S",
+    )
 
     file_handler.setFormatter(default_formatter)
     console_handler.setFormatter(UvicornFormatter(UvicornFormatter.FORMAT))

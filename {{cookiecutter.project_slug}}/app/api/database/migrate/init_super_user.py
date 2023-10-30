@@ -22,7 +22,7 @@ def init_super_user():
             "role": -1,
         })
         user['password'] = authentication_service.get_password_hash(user['password'])
-        user['createAt'] = datetime.datetime.now()
-        user['updateAt'] = datetime.datetime.now()
+        user['created_at'] = datetime.datetime.now()
+        user['updated_at'] = datetime.datetime.now()
 
         execute.add_data(convert_user_to_model(user))

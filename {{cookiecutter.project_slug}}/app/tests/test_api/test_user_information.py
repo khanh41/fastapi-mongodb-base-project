@@ -25,7 +25,7 @@ def test_rest_api_user_information():
     response = client.post("/api/admin/user", json=user_information_request)
     assert response.status_code == 200
 
-    user_id = response.json()["data"]["userID"]
+    user_id = response.json()["data"]["user_id"]
 
     response = client.put(f"/api/admin/user/{user_id}", json=user_information_request)
     assert response.status_code == 200

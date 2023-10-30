@@ -1,0 +1,39 @@
+name: Main Docker Compose CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+      PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+      SOURCE_DIRECTORY: "~/{{cookiecutter.project_slug}}"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create ENV
+        env:
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          PROD_SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
+          PROD_ENV: ${{ vars.PROD_ENV }}
+        run: |
+          echo -e "$PROD_ENV" >> .env
+          echo -e "$PROD_SSH_KEY" > id_rsa.txt
+          chmod 600 id_rsa.txt
+          echo -e "$GOOGLE_SERVICE_ACCOUNT" > google_service_account.json
+          chmod 600 google_service_account.json
+
+      - name: Clone repository to remote server
+        run: |
+          rsync -ahrz --exclude-from '.dockerignore' -e "sudo ssh -i id_rsa.txt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./ $PROD_SSH_USER@$PROD_SSH_HOST:$SOURCE_DIRECTORY
+
+      - name: Deploy to server
+        run: |
+          sudo ssh -i id_rsa.txt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $PROD_SSH_USER@$PROD_SSH_HOST "cd $SOURCE_DIRECTORY && COMPOSE_HTTP_TIMEOUT=2000 docker-compose up --build -d"

@@ -8,7 +8,7 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette.responses import RedirectResponse, Response
 
-from app.api.database.models.auth import basic_auth, BasicAuth
+from app.api.database.models.auth import BasicAuth, basic_auth
 from app.api.database.models.token import Token
 from app.api.database.models.user import UserSchema
 from app.api.services import authentication_service

@@ -11,16 +11,14 @@ class UserExecute(BaseExecute):
     """User Execute."""
 
     def retrieve_data_by_username(self, username: str) -> UserSchema | None:
-        """Get user information by username."""
-        data: dict = self.data_collection.find_one({"username": username})
-        if data:
+        """Get user information by a username."""
+        if data := self.data_collection.find_one({"username": username}):
             return self.convert_helper(data)
         return None
 
     def retrieve_data_by_role(self, role: int) -> UserSchema | None:
-        """Get user information by role."""
-        data: dict = self.data_collection.find_one({"role": role})
-        if data:
+        """Get user information by a role."""
+        if data := self.data_collection.find_one({"role": role}):
             return self.convert_helper(data)
         return None
 
