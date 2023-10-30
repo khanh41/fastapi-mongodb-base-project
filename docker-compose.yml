@@ -1,8 +1,10 @@
-version: "3"
+version: "3.9"
 
 services:
   app:
-    build: .
+    build:
+      context: "{{cookiecutter.project_slug}}"
+      dockerfile: "docker/Dockerfile"
     restart: on-failure
     depends_on:
       - mongodb
