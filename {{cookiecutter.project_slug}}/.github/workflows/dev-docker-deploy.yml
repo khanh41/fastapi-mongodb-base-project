@@ -1,0 +1,35 @@
+name: Dev Docker Compose CI/CD
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      DEV_SSH_USER: ${{ secrets.DEV_SSH_USER }}
+      DEV_SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
+      SOURCE_DIRECTORY: "~/{{cookiecutter.project_slug}}"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create ENV
+        env:
+          DEV_SSH_KEY: ${{ secrets.DEV_SSH_KEY }}
+          DEV_ENV: ${{ vars.DEV_ENV }}
+        run: |
+          echo -e "$DEV_ENV" >> .env
+          echo -e "$DEV_SSH_KEY" > id_rsa.txt
+
+      - name: Clone repository to remote server
+        run: |
+          rsync -ahrz --exclude-from '.dockerignore' -e "sudo ssh -i id_rsa.txt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./ $DEV_SSH_USER@$DEV_SSH_HOST:$SOURCE_DIRECTORY
+
+      - name: Deploy to server
+        run: |
+          sudo ssh -i id_rsa.txt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEV_SSH_USER@$DEV_SSH_HOST "cd $SOURCE_DIRECTORY && COMPOSE_HTTP_TIMEOUT=2000 docker-compose up --build -d"

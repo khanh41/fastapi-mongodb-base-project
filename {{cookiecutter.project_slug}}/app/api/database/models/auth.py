@@ -19,11 +19,11 @@ class OAuth2PasswordBearerCookie(OAuth2):
     """Authentication Bearer Cookie."""
 
     def __init__(
-            self,
-            token_url: str,
-            scheme_name: str = None,
-            scopes: dict = None,
-            auto_error: bool = True,
+        self,
+        token_url: str,
+        scheme_name: str = None,
+        scopes: dict = None,
+        auto_error: bool = True,
     ) -> None:
         if not scopes:
             scopes = {}
@@ -41,16 +41,14 @@ class OAuth2PasswordBearerCookie(OAuth2):
             cookie_authorization
         )
 
-        if header_scheme.lower() == "bearer":
+        if header_scheme.lower() == "bearer" and header_param != 'undefined':
             authorization = True
             scheme = header_scheme
             param = header_param
-
-        elif cookie_scheme.lower() == "bearer":
+        elif cookie_scheme.lower() == "bearer" and cookie_param != 'undefined':
             authorization = True
             scheme = cookie_scheme
             param = cookie_param
-
         else:
             authorization = False
             scheme = ""
@@ -62,6 +60,7 @@ class OAuth2PasswordBearerCookie(OAuth2):
                     status_code=HTTP_403_FORBIDDEN, detail="Not authenticated"
                 )
             return None
+
         return param
 
 

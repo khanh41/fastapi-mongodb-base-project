@@ -1,4 +1,4 @@
-"""Define config for project."""
+"""Define a config for project."""
 from __future__ import annotations
 
 import logging
@@ -23,7 +23,7 @@ DEBUG: bool = config("DEBUG", cast=bool, default=False)
 
 PROJECT_NAME: str = config("{{ cookiecutter.project_name|replace(' ', '-') }}",
                            default="{{ cookiecutter.project_name }} application")
-ALLOWED_HOSTS: list[str] = config(
+ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
     cast=CommaSeparatedStrings,
     default="",

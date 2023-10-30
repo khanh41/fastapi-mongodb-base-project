@@ -1,1 +1,1 @@
-"""Download file from internet."""
+"""Download file from the internet."""

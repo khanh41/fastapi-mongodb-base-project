@@ -10,12 +10,12 @@ from app.api.database.models.base import CustomBaseModel
 
 class UserSchema(CustomBaseModel):
     """User Schema."""
-    userID: Optional[str] = None
+    user_id: Optional[str] = None
     username: str = Field(...)
     password: str = Field(...)
     role: int = Field(...)
-    createAt: Optional[datetime] = None
-    updateAt: Optional[datetime] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
     class Config:
         """Config."""

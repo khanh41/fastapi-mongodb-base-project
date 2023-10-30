@@ -1,0 +1,30 @@
+name: Pull Request Docker Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-docker-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create ENV
+        env:
+          DEV_ENV: ${{ vars.DEV_ENV }}
+        run: |
+          echo -e "$DEV_ENV" >> .env
+
+      - name: Build and run docker compose
+        run: docker-compose up --build -d
+
+      - name: Wait for health check
+        run: |
+          timeout 30s bash -c "until docker inspect --format='{{json .State.Health.Status}}' chatfly_be | grep -q '"healthy"'; do sleep 1; done"
+
+      - name: Cleanup
+        run: docker-compose down

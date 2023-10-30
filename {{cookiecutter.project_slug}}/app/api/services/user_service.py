@@ -14,8 +14,8 @@ class UserService:
         """Add user to database."""
         user_password = user.password
         user.password = authentication_service.get_password_hash(user_password)
-        user.createAt = datetime.now()
-        user.updateAt = datetime.now()
+        user.created_at = datetime.now()
+        user.updated_at = datetime.now()
 
         new_user = user_execute.add_data(user)
         new_user.password = user_password

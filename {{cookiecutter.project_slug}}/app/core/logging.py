@@ -11,11 +11,7 @@ class InterceptHandler(logging.Handler):
     """Intercept Handler."""
 
     def emit(self, record: logging.LogRecord) -> None:  # pragma: no cover
-        """Emit.
-
-        Args:
-            record: Record for emit.
-        """
+        """Emit."""
         # Get corresponding Loguru level if it exists
         try:
             level = logger.level(record.levelname).name
