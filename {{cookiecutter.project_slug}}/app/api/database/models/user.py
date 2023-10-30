@@ -19,7 +19,7 @@ class UserSchema(CustomBaseModel):
 
     class Config:
         """Config."""
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "username": "example@gmail.com",
                 "password": "abcd123456",

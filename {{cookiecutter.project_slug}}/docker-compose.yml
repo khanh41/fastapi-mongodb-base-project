@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   backend-app:
+    container_name: {{cookiecutter.project_slug}}-backend-app
     build:
       context: .
       dockerfile: docker/Dockerfile
@@ -10,14 +11,25 @@ services:
       - mongodb
     ports:
       - "{{cookiecutter.port}}:{{cookiecutter.port}}"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl http://0.0.0.0:{{cookiecutter.port}}/" ]
+      interval: 60s
+      timeout: 5s
+      retries: 5
     networks:
       - backend-network
 
   mongodb:
     image: mongo
+    container_name: {{cookiecutter.project_slug}}-mongodb
     ports:
       - "27017:27017"
     restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
     env_file:
       - .env
     volumes:
