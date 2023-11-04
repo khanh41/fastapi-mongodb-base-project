@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create ENV
-        env:
-          DEV_ENV: ${{ vars.DEV_ENV }}
+#        env:
+#          DEV_ENV: ${{ vars.DEV_ENV }}
         run: |
           echo -e "$DEV_ENV" >> .env
 
