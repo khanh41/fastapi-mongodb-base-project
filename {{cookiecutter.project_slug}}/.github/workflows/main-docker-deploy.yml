@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
-      PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+#      PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+#      PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
       SOURCE_DIRECTORY: "~/{{cookiecutter.project_slug}}"
 
     steps:
@@ -19,16 +19,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create ENV
-        env:
-          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-          PROD_SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
-          PROD_ENV: ${{ vars.PROD_ENV }}
+#        env:
+#          PROD_SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
+#          PROD_ENV: ${{ vars.PROD_ENV }}
         run: |
           echo -e "$PROD_ENV" >> .env
           echo -e "$PROD_SSH_KEY" > id_rsa.txt
           chmod 600 id_rsa.txt
-          echo -e "$GOOGLE_SERVICE_ACCOUNT" > google_service_account.json
-          chmod 600 google_service_account.json
 
       - name: Clone repository to remote server
         run: |

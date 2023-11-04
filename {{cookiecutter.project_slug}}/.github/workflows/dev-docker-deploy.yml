@@ -8,20 +8,19 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
-    env:
-      DEV_SSH_USER: ${{ secrets.DEV_SSH_USER }}
-      DEV_SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
-      SOURCE_DIRECTORY: "~/{{cookiecutter.project_slug}}"
+#    env:
+#      DEV_SSH_USER: ${{ secrets.DEV_SSH_USER }}
+#      DEV_SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
+#      SOURCE_DIRECTORY: "~/{{cookiecutter.project_slug}}"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Create ENV
-        env:
-          DEV_SSH_KEY: ${{ secrets.DEV_SSH_KEY }}
-          DEV_ENV: ${{ vars.DEV_ENV }}
+#        env:
+#          DEV_SSH_KEY: ${{ secrets.DEV_SSH_KEY }}
+#          DEV_ENV: ${{ vars.DEV_ENV }}
         run: |
           echo -e "$DEV_ENV" >> .env
           echo -e "$DEV_SSH_KEY" > id_rsa.txt
